@@ -1,0 +1,73 @@
+---
+title: "Session4"
+author: "Omotolani Ligali"
+date: "10/31/2019"
+output:
+  word_document: default
+  pdf_document: default
+---
+
+#QUESTION 1: One sample t-test
+
+#Answer:
+
+#Hypothesis
+
+#Null Hypothesis: The mean is equal to 0.4
+
+#Alternate Hypothesis: The mean is greater than  0.4
+
+#Level of Significance: The level of significance is 0.05
+
+#Test:
+```{r}
+dt<-read.csv("data/diamond.csv",header = T)
+carat<-t.test(dt$carat,mu = 0.4,alternative = "greater")
+carat
+```
+#Conclusion: Since the p-value from the test is less than 0.05,the null hypothesis is rejected and the true mean is greater than 0.4 
+
+#QUESTION 2: Two sample independent T-test
+
+#Answer:
+
+#Hypothesis
+
+#Null Hypothesis: The difference in mean of group M and group B is equal to zero
+
+#Alternate Hypothesis: The difference in mean of group M and group B is not equal to zero
+
+#Level of Significance: The level of significance is 0.05
+
+#Test:
+```{r}
+ct<-read.csv("data/cancer.csv",header = T)
+t.test(ct$area_worst~ct$diagnosis,alternative ="two.sided")
+```
+#Conclusion: Since the p-value from the test is less than 0.05, the null hypothesis is rejected,and the true difference in mean is not equal to zero
+
+#QUESTION 3:Two sample paired test
+
+#Answer:
+
+#Hypothesis
+
+#Null Hypothesis: The difference in mean of tumor size before treatment and tumor size after treatment is equal to zero
+
+#Alternate Hypothesis: The difference in mean of tumor size before treatment and tumor size after treatment is not equal to zero
+
+#Level of Significance: The level of significance is 0.05
+
+#Test:
+```{r}
+
+tumor<-c(80, 45, 78, 89, 80, 90, 91, 89, 56, 78, 89,81)
+```
+```{r}
+
+tumor1<-c(61, 71, 62, 78, 88, 71, 78, 79, 67, 66,78,79)
+```
+```{r}
+t.test(tumor,tumor1,paired = TRUE)
+```
+#Conclusion: Since the p-value from the test is greater than our level of significance, therefore the null hypothesis is not rejected

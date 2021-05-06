@@ -1,0 +1,125 @@
+---
+title: "Session3"
+author: "Omotolani Ligali"
+date: "10/17/2019"
+output:
+  word_document: default
+  pdf_document: default
+  html_document:
+    df_print: paged
+---
+```{r}
+library(readxl)
+library(tidyverse)
+```
+```{r}
+dta<-read_excel("data/mbta.xlsx",skip = 1,range = cell_cols(2:60))
+dta_tidy <- dta %>% gather('2007-01':'2011-10', key = "year",value = "passengers" )
+dta_tidy <- dta_tidy %>% separate(year, into = c("year","month"))
+dta_tidy<- dta_tidy %>% spread(mode,passengers)
+dta_tidy<- dta_tidy %>% .[,c(1:2,6:8)]#the dot is referencing the data
+dta_tidy <- dta_tidy %>% gather('Commuter Rail':'Light Rail', key = "rail_type",value = "passengers" )
+dta_tidy
+view(dta)
+view(dta_tidy)
+```
+
+```{r}
+library(hflights)
+data("hflights")
+filter(hflights,Year == 2011, Month == 2)
+fil<-filter(hflights,Origin %in% c('FIL','IAH'))
+View(hflights)
+```
+
+```{r}
+
+fil<-filter(hflights,Dest %in% c('ORD','SLA'))
+View(fil)
+```
+
+```{r}
+
+fil2<-filter(hflights,Year == 2011, Month == 4)
+View(fil2)
+```
+```{r}
+opera<-filter(hflights,UniqueCarrier %in% c('AA','WN'))
+View(opera)
+```
+```{r}
+fil3<-filter(hflights,between(Distance,224,944))[,11:6]
+View(fil3)
+```
+```{r}
+arr<-arrange(hflights, desc(ArrDelay))[,10:15]
+View(arr)
+```
+```{r}
+sel_2<-select(hflights,tail_num = TailNum)
+View(sel_2)
+```
+```{r}
+sel_3<-rename(hflights,tail_num = TailNum)
+View(sel_3)
+```
+
+```{r}
+sel_4<-select(hflights,starts_with("Dep"),starts_with("Arr"))
+View(sel_4)
+```
+```{r}
+vars<-c("Year","Month","DayOfMonth","ArrTime")
+s_1<-select(hflights,one_of(vars))
+head(s_1)
+```
+```{r}
+newlist<-hflights %>% select(ends_with("Delay"),Distance,AirTime)%>%
+  mutate(time_gain = ArrDelay - DepDelay,speed =Distance / AirTime * 60)
+View(newlist)
+```
+```{r}
+summm<-summarize(hflights,Delay = sum(DepDelay,na.rm = TRUE))
+View(summm)
+```
+```{r}
+hflights %>%
+  group_by(Year,Month,DayofMonth) %>%
+  summarise(delay = mean(DepDelay,na.rm = TRUE))
+```
+```{r}
+hflights %>% select(Year,Month,DayofMonth,DepDelay) %>%
+  arrange(DayOfMonth)
+```
+```{r}
+library(ggplot2)
+dta_tidy <- dta %>% gather('2007-01':'2011-10', key = "year",value = "passengers" )
+dta_tidy <- dta_tidy %>%separate(year,  into = c("year","month"))
+
+dta_tidy
+
+```
+```{r}
+dta_tidy <- dta_tidy %>% spread(mode,passengers)
+dta_tidy <- dta_tidy %>% .[,c(1:2,6:8,10)]
+```
+```{r}
+dta_tidy3 <- dta_tidy %>% gather("Commuter Rail":"Private Bus", key= "rail_type",value = "passengers")
+dta_tidy3
+```
+```{r}
+dta_tidy1 <- dta_tidy %>% filter(mode %in% c("Commuter Rail","Heavy Rail","Light Rail","Private Bus"))
+dta_tidy1
+```
+```{r}
+ggplot(dta_tidy1,aes(x=year,y=passengers,color=mode))+geom_point()
+```
+```{r}
+dta_tidy3$year<- as.factor(dta_tidy3$year)
+dta_tidy3$rail_type<- as.factor(dta_tidy3$rail_type)
+dta_tidy3$passengers<-as.numeric(dta_tidy3$passengers)
+glimpse(dta_tidy3)
+```
+```{r}
+ggplot(dta_tidy3,aes(x=year,y=passengers,color=rail_type,size=rail_type,shape = rail_type))+geom_point()+ggtitle("Passengers against Year based on Rail Type")+ylab("Number of Passenger")+xlab("Years")
+```

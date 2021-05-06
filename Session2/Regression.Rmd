@@ -1,0 +1,45 @@
+---
+title: "Regression"
+author: "Omotolani Ligali"
+date: "11/8/2019"
+output: html_document
+---
+```{r}
+data("iris")
+fix("iris")
+```
+```{r}
+library(ggplot2)
+dt<-ggplot(iris,aes(x=Petal.Length,y=Sepal.Length)) + geom_point() + ggtitle("Sepal Length Against Petal Length")
+dt
+```
+```{r}
+ml<-lm(Sepal.Length~Petal.Length,data = iris)
+summary(ml)
+```
+```{r}
+plot(ml)
+```
+```{r}
+par(mfrow=c(2,2))
+plot(ml)
+```
+```{r}
+dt1<-data.frame(age<-c(30,41,42,43,31),
+weight<-c(60,67,81,54,69))
+dt
+m2<-lm(age~weight,data=dt1)
+summary(m2)
+```
+```{r}
+plot(dt1$weight,dt1$age)
+
+```
+```{r}
+hist(ml$residuals)
+shapiro.test(ml$residuals)
+```
+```{r}
+par(mfrow=c(2,2))
+plot(m2)
+```

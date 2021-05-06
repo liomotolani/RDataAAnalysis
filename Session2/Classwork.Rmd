@@ -1,0 +1,75 @@
+---
+title: "Exercise"
+author: "Omotolani Ligali"
+date: "11/8/2019"
+output: html_document
+---
+
+Entering the data
+```{r}
+data_value<-data.frame(year_1996 = c(30000,34000,36000,38000,40000),
+                       year_1997 = c(30000,35000,37000,38000,40000),
+                       year_1998 = c(40000,41000,43000,44000,50000)
+                       )
+data_value
+```
+Loading the required package
+```{r}
+library(tidyverse)
+library(tidyr)
+```
+Gather the columns and assigning new names to it.
+```{r}
+data_tidy <-  gather(data_value,key ="Year",value = 'Price')
+```
+```{r}
+as.factor(data_tidy$Year)
+View(data_tidy)
+```
+Carrying out ANOVA
+
+Research question ?
+
+Is there a significant difference in the mean price of land across the three years?
+
+Null Hypothesis: There is no significant difference in the mean price of land across the three years
+
+Alternative Hyothesis: There is siginificant difference in the mean price of land across the three years 
+
+Level Significant: 0.05
+```{r}
+a1<-aov(data_tidy$Price~data_tidy$Year)
+summary(a1)
+```
+Conclusion:
+Since the p value of 0.0104 is less than the level of significant which is 0.05, which implies rejection of the null hypothesis and we conclude that there is significance difference in the mean price of land across the three years.
+
+```{r}
+TukeyHSD(a1)
+```
+From the post hoc test we discovered that the year 1996-1997 does not have a significant difference because the p factor is greater than 0.05.
+
+```{r}
+data_month<-data.frame(month_0 = c(58.75,57.94,58.91,56.85,55.21,57.30),
+                       month_1 = c(58.87,56.43,56.51,57.67,59.75,58.48),
+                       month_2 = c(59.13,60.38,58.01,59.95,59.51,60.34),
+                       month_3 = c(62.32,58.76,60.03,59.36,59.61,61.95)
+                       )
+data_month
+```
+
+```{r}
+dt_t<-gather(data_month,key = "Month",value = "Calcium")
+```
+```{r}
+as.factor(dt_t$Month)
+```
+
+```{r}
+a2<-aov(dt_t$Calcium~dt_t$Month)
+summary(a2)
+```
+#The p value is less than 0.05, so we reject the null hypothesis which implies that the mean of the calcium content of the months is not equal
+```{r}
+TukeyHSD(a2)
+```

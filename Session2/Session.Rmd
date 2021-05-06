@@ -1,0 +1,150 @@
+---
+title: "Session"
+author: "Omotolani Ligali"
+date: "10/10/2019"
+output: html_document
+---
+```{r}
+info<-read.table("data/who_suicide_statistics.csv",header = T,sep = ",",dec = ".")
+```
+```{r}
+View(info)
+```
+
+```{r}
+auto<-read.table("data/auto.txt",header= F,sep =",",dec=".")
+```
+```{r}
+View(auto)
+```
+```{r}
+names(auto)<-c("symboling","normalized-losses","make"         ,"fuel-type","aspiration","num-of-doors"," body-style"," drive-wheels"," wheel-base"," length"," width","height"," curb-weight"," engine-type"," num-of-cylinders"," engine-size","fuel-system","bore","stroke","compression-ratio","horsepower","peak-rpm","city-mpg","highway-mpg","price")
+```
+```{r}
+View(auto)
+```
+
+```{r}
+potato <- read.table("data/potatoes.txt",header= F,sep ="\t")
+```
+```{r}
+View(potato)
+```
+```{r}
+semi<-read.csv("data/who_suicide_statistics_semi.csv",header = T)
+```
+```{r}
+View(semi)
+```
+```{r}
+library(readxl)
+```
+```{r}
+sht1 <- read_excel("data/Employees.xlsx",sheet = 1)
+sht2 <- read_excel("data/Employees.xlsx",sheet = 2)
+str(sht1)
+```
+```{r}
+View(sht1)
+```
+```{r}
+library(DBI)
+library(RMySQL)
+```
+```{r}
+host<-"courses.csrrinzqubik.us-east-1.rds.amazonaws.com" 
+connect <- dbConnect(RMySQL::MySQL(), dbname = "tweater", host = host, port = 3306, user = "student",  password = 'datacamp')
+```
+
+```{r}
+table<-dbListTables(connect)
+table
+```
+
+```{r}
+user<-dbReadTable(connect,'users')
+user
+```
+```{r}
+write.csv(user,file = "users.csv")
+```
+```{r}
+write.table(user,file ="users.txt",sep ="\t")
+```
+```{r}
+write.table(user,file ="users1.txt",sep =",")
+```
+
+```{r}
+library(haven)
+```
+```{r}
+birth<-read_sas(file.choose())
+str(birth)
+
+```
+```{r}
+View(birth)
+```
+```{r}
+ach<- read_dta("data/alcohol.dta")
+str(ach)
+```
+```{r}
+hs<-read.csv(file.choose(),header = T)
+```
+```{r}
+plot(hs$Bathrooms,hs$Price, main="Relationship between Price and Bathroom",xlab = "Number of bathrooms",ylab = "Price of the House")
+```
+```{r}
+library(DBI)
+library(RMySQL)
+```
+```{r}
+host<-"courses.csrrinzqubik.us-east-1.rds.amazonaws.com" 
+connect <- dbConnect(RMySQL::MySQL(), dbname = "tweater", host = host, port = 3306, user = "student",  password = 'datacamp')
+```
+```{r}
+comm<-dbReadTable(connect,'comments')
+comm
+```
+```{r}
+write.table(comm,file = "comment.xlsx")
+```
+```{r}
+tweaks<-dbReadTable(connect,'tweats')
+tweaks
+```
+```{r}
+write.table(comm,file = "tweats.xlsx")
+```
+```{r}
+library(DBI)
+library(RMySQL)
+```
+```{r}
+#host<-"courses.csrrinzqubik.us-east-1.rds.amazonaws.com" 
+connect1 <- dbConnect(RMySQL::MySQL(), dbname = "cape_codd", host = "localhost", port = 3306, user = "root",  password = 'password')
+```
+```{r}
+table1<-dbListTables(connect1)
+table1
+```
+```{r}
+hist(log(hs$Price),main = "Relationship between Price",xlab = "Price")
+```
+```{r}
+str(hs)
+```
+```{r}
+ex<-read.csv("data/example.csv",header = T)
+```
+```{r}
+str(ex)
+```
+```{r}
+hs<-read.csv("data/house.csv",header = T)
+```
+```{r}
+boxplot(hs$Price~hs$Status,main="Box plot of Price based on Status", xlab = "Status of House",ylab = "Price of house")
+```

@@ -1,0 +1,55 @@
+---
+title: "Inferential"
+author: "Omotolani Ligali"
+date: "10/31/2019"
+output: html_document
+---
+
+```{r}
+
+dt<-read.csv("data/diamond.csv",header = T)
+t.test(dt$price,mu=3000,alternative = "less")
+
+```
+```{r}
+carat<-t.test(dt$carat,mu = 0.4,alternative = "greater")
+carat
+```
+```{r}
+t.test(dt$price,dt$depth,alternative = "two.sided")
+```
+```{r}
+ct<-read.csv("data/cancer.csv",header = T)
+t.test(ct$area_se~ct$diagnosis,alternative = "two.sided")
+```
+```{r}
+t.test(ct$area_worst~ct$diagnosis,alternative ="two.sided")
+```
+```{r}
+var.test(ct$area_se~ct$diagnosis)
+```
+```{r}
+#weight of participants before treatment
+x<-c(239, 170, 182, 143, 141, 170, 160, 154, 185, 130)
+```
+```{r}
+#weight of participant after treatment
+y<-c(362, 343, 330, 340, 314, 567, 292, 439, 312, 292)
+```
+```{r}
+t.test(x,y,paired = TRUE)
+```
+```{r}
+#weight of participants before treatment
+tumor<-c(80, 45, 78, 89, 80, 90, 91, 89, 56, 78, 89,81)
+```
+```{r}
+#weight of participant after treatment
+tumor1<-c(61, 71, 62, 78, 88, 71, 78, 79, 67, 66,78,79)
+```
+```{r}
+t.test(tumor,tumor1,paired = TRUE)
+```
+```{r}
+chisq.test(dt$color,dt$clarity)
+```

@@ -1,0 +1,54 @@
+---
+title: "Data Visualization"
+author: "Omotolani Ligali"
+date: "10/24/2019"
+output: html_document
+---
+
+```{r}
+library(ggplot2)
+dmd <- read.table("data/diamond.csv",header = T,dec = ".",sep = ",")
+head(dmd)[1:5]
+```
+```{r}
+ggplot(dmd,aes(x=carat,y=price))+geom_point()
+```
+```{r}
+ggplot(dmd,aes(x=carat,y=price))+geom_point(color="blue")
+```
+```{r}
+ggplot(dmd,aes(x=carat,y=price,color=cut))+geom_point()
+```
+```{r}
+ggplot(dmd,aes(carat))+geom_histogram()
+```
+```{r}
+ggplot(dmd,aes(x=cut,y=price))+geom_boxplot()
+```
+```{r}
+ggplot(dmd,aes(x=carat,y=price))+geom_point(aes(color=cut,shape=cut,size=0.05))+labs(title = "Relationship between Price and Carat of Daimond", x ="Carat",y="Price")
+```
+```{r}
+ggplot(dmd,aes(x=carat,y=price))+geom_point(aes(color=color,shape=cut,size=0.05))+labs(title = "Relationship between Price and Carat of Daimond")+scale_y_continuous(name = "Price",limits = c(0,15000),breaks = seq(0,15000,by=3000))+
+scale_x_continuous(name = "Carat",limits = c(0,4),breaks = seq(0,4,by=0.5))
+```
+```{r}
+ggplot(dmd,aes(x=carat,y=price))+geom_point(aes(color=color,shape=cut,size=0.05))+labs(title = "Relationship between Price and Carat of Daimond")+scale_y_continuous(name = "Price",limits = c(0,15000),breaks = seq(0,15000,by=3000))+
+scale_x_continuous(name = "Carat",limits = c(0,4),breaks = seq(0,4,by=0.5))+scale_color_brewer(name="Diamond color",palette = "Set1")
+```
+```{r}
+ggplot(dmd,aes(x=carat,y=price))+geom_point(aes(color=color,shape=cut,size=0.05))+labs(title = "Relationship between Price and Carat of Daimond")+scale_y_continuous(name = "Price",limits = c(0,15000),breaks = seq(0,15000,by=3000))+
+scale_x_continuous(name = "Carat",limits = c(0,4),breaks = seq(0,4,by=0.5))+scale_color_manual(name = "Diamond Cut", values = c("blue","orange","red","purple","cyan","green","yellow"),labels=c("Fair","Good","Ideal","Premium","VG"))
+```
+```{r}
+ggplot(dmd,aes(x=carat,y=price))+geom_point(aes(color=color,shape=cut,size=0.05))+geom_smooth()+labs(title = "Relationship between Price and Carat of Daimond")+scale_y_continuous(name = "Price",limits = c(0,15000),breaks = seq(0,15000,by=3000))+
+scale_x_continuous(name = "Carat",limits = c(0,4),breaks = seq(0,4,by=0.5))+scale_color_manual(name = "Diamond Cut", values = c("blue","orange","red","purple","cyan","green","yellow"),labels=c("Fair","Good","Ideal","Premium","VG"))
+```
+```{r}
+ggplot(dmd,aes(x=carat,y=price))+geom_point(aes(color=color,shape=cut,size=0.05))+geom_smooth(method = "lm")+labs(title = "Relationship between Price and Carat of Daimond")+scale_y_continuous(name = "Price",limits = c(0,15000),breaks = seq(0,15000,by=3000))+
+scale_x_continuous(name = "Carat",limits = c(0,4),breaks = seq(0,4,by=0.5))+scale_color_manual(name = "Diamond Cut", values = c("blue","orange","red","purple","cyan","green","yellow"),labels=c("Fair","Good","Ideal","Premium","VG"))
+```
+```{r}
+ggplot(dmd,aes(x=carat,y=price))+geom_point(aes(color=color,shape=cut,size=0.05))+geom_smooth(method = "lm")+labs(title = "Relationship between Price and Carat of Daimond")+scale_y_continuous(name = "Price",limits = c(0,15000),breaks = seq(0,15000,by=3000))+
+scale_x_continuous(name = "Carat",limits = c(0,4),breaks = seq(0,4,by=0.5))+scale_color_manual(name = "Diamond Cut", values = c("blue","orange","red","purple","cyan","green","yellow"),labels=c("Fair","Good","Ideal","Premium","VG"))+facet_grid(~ cut)+theme_bw()
+```

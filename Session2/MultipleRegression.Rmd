@@ -1,0 +1,61 @@
+---
+title: "Lagos R class"
+author: "Omotolani Ligali"
+date: "11/9/2019"
+output: html_document
+---
+
+```{r}
+data("iris")
+fix("iris")
+```
+```{r}
+m1<-lm(iris$Sepal.Length~iris$Petal.Length,data=iris)
+summary(m1)
+```
+Conclusion: The probability value of the slope is less than 0.05,hence we reject our null hypothesis and accept the alternate hypothesis which means the Petal length has a significant effect on the Sepal length, with 76% of the Sepal length being explained by the Petal length
+```{r}
+par(mfrow=c(2,2))
+plot(m1)
+```
+```{r}
+hist(m1$residuals)
+```
+```{r}
+plot(iris$Petal.Length,iris$Sepal.Length)
+```
+```{r}
+cor(iris$Sepal.Length,iris$Petal.Length)
+```
+```{r}
+m1<-lm(Sepal.Length~Petal.Length,data=iris[-c(15,107,132),])
+summary(m1)
+par(mfrow=c(2,2))
+plot(m1)
+```
+```{r}
+m1<-lm(Sepal.Length~Petal.Length,data=iris[-c(15,16,51,136,128,107,132,19,115,61,85,53,37,122,58,84,60,114,34,94,91,102,118,17,143,67,123,66,131,135,150,106,119,101,32,77,11,142,130,108,38,120,76,87,126,110,6,59,103,59,140,21,49,78,75,9,14,55,39,43,121,146,99,113,90,29,52,54,42,95,56,28,4,33,89,88,81,71,30,48,144,82,25,7,141,70,100,97,96,32,149),])
+summary(m1)
+par(mfrow=c(2,2))
+plot(m1)
+```
+
+```{r}
+shapiro.test(m1$residuals)
+```
+```{r}
+hs<-read.csv(file ="data/house.csv",header = T)
+str(hs)
+```
+```{r}
+attach(hs)
+m3<-lm(Price~Bedrooms+Bathrooms+SQFT+Status)
+summary(m3)
+```
+Conclusion: The probability value of the bedrooms,bathrooms,SQFT,status regular are less than 0.05,hence we reject the null hypothesis and accept the alternate hypothesis which implies they all have significant effect on the Price,52.29% variability of the Price is explained by bedrooms,bathrooms,SQFT, and the status regular
+```{r}
+hist(m3$residuals)
+```
+```{r}
+shapiro.test(m3$residuals)
+```

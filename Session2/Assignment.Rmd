@@ -1,0 +1,25 @@
+---
+title: "Assignment1"
+author: "Omotolani Ligali"
+date: "10/11/2019"
+output: pdf_document
+---
+
+```{r}
+diamond_data<-read.csv("data/diamond.csv",header = T)
+diamond_data
+```
+```{r}
+str(diamond_data)
+```
+```{r}
+plot(diamond_data$depth,diamond_data$price,main="Relationship between Price and Depth",xlab = "Depth of diamond",ylab = "Price of diamond")
+```
+
+```{r}
+hist(diamond_data$price,main = "Relationship between Price and Frequency",xlab = "Price")
+```
+
+```{r}
+boxplot(diamond_data$price~diamond_data$cut,main="Box plot of Price based on Cut", xlab = "Cut of Diamond",ylab = "Price of diamond")
+```

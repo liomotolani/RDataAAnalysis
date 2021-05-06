@@ -1,0 +1,69 @@
+---
+title: "Test"
+author: "Omotolani Ligali"
+date: "10/18/2019"
+output: html_document
+---
+
+Question 1
+
+```{r}
+a<- matrix(1:10,nrow = 5,ncol = 2,byrow = TRUE)
+View(a)
+```
+
+Question 2
+```{r}
+b<-matrix(1:6,nrow = 2,ncol = 3)
+c<- matrix(7:12,nrow = 2,ncol = 3)
+add<-b + c
+subtract<- b - c
+multiply<- b * c
+View(add)
+View(subtract)
+View(multiply)
+```
+
+Question 3
+```{r}
+mat<- matrix(1:10,nrow = 2,ncol = 5)
+mat<- mat[2,3]
+View(mat)
+```
+
+Question 4
+```{r}
+num <-c(1:6)
+numb<-as.numeric(num)
+com<-as.complex(num)
+logi<-as.logical(num)
+chara<-as.character(num)
+numb
+com
+logi
+chara
+```
+Question 5
+
+```{r}
+num1<-c(1:3)
+num2<-c(4:6)
+sumNum<- num1 * num2
+sumNum
+```
+Question 6
+```{r}
+newTable<-read.table("data/tumor.txt",header = T,sep = "\t",dec = ".")
+View(newTable)
+```
+
+Question 7
+```{r}
+plot(newTable$futime,newTable$time,main = "Relationship between futime and time",xlab = "The value of futime",ylab = "The value of time")
+```
+
+Question 8
+
+```{r}
+hist(log(newTable$time),main = "The histogram of time against frequency",xlab = "The value of Time")
+```

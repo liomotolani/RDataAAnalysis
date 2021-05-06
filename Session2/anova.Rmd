@@ -1,0 +1,43 @@
+---
+title: "Anova"
+author: "Omotolani Ligali"
+date: "11/1/2019"
+output: html_document
+---
+
+```{r}
+dt<-read.csv("data/diamond.csv",header = T)
+dt
+```
+
+```{r}
+dt1<-table(dt$price,dt$color)
+dt1
+```
+```{r}
+
+a1<-aov(dt$price~dt$color)
+summary(a1)
+
+```
+
+```{r}
+c<-(2.685e+10 / 6)
+p<-(c/1.542e+07)
+p
+```
+```{r}
+TukeyHSD(a1)
+```
+
+```{r}
+data("iris")
+View(iris)
+```
+```{r}
+a2<-aov(iris$Sepal.Length~iris$Species)
+summary(a2)
+```
+```{r}
+TukeyHSD(a2)
+```
